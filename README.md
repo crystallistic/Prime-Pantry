@@ -6,6 +6,8 @@ Objective: Given a dictionary of items and their (integer, positive-valued) item
 Python 3.6.0
 
 ## How to Run
+1. x
+2. The program should return a list of all possible subsets that match the criteria, and print a message if there are none.
 
 ## Efficiency
 The program is more efficient than enumerating all possible subsets for the following reasons: 
