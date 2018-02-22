@@ -9,6 +9,7 @@ Python 3.6.0
 - Run file from IDLE. Then input the following commands, in the same or similar formats. 
 
 \>>> import primePantryV2
+\\
 \>>> primePantryV2.primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
                'cereal':15, 'chocolate' : 70, 'soy milk' : 45}, 6, 100)
 
