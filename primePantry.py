@@ -18,7 +18,9 @@ Desired output:
 You only need to return one correct match to get full credit.
 Bonus point if you can return all matches. 
 '''
-globvar = False
+#Global variable to keep track of whether there are any subsets
+#that match the given criteria
+globvar = False 
 
 def primePantryV2(dict_items, num_items, total):
     ''' Function to identify whether there is a subset of items that could
@@ -36,8 +38,10 @@ def primePantryV2(dict_items, num_items, total):
         # turn the list of items and their weights into a list of tuples
         items = list(dict_items.items())
         partial_lst = []
-        workerFunc(items, total, partial_lst)
+        #updating global variable to make sure it is set to false
         global globvar
+        globvar = False
+        workerFunc(items, total, partial_lst)
         if (globvar == False):
             print ("No possible subset gives the desired total")
     except (ValueError):
@@ -63,4 +67,6 @@ def workerFunc(items, total, partial_lst):
         n = items[i]
         remaining = items[i+1:]
         workerFunc(remaining, total, partial_lst + [n])
+   
+    
 
