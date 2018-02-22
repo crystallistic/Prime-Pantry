@@ -8,6 +8,8 @@ Example function call:
 ------------------------------------------------------
 primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
                'cereal':15}, 4, 100)
+primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
+               'cereal':15, 'chocolate' : 70, 'soy milk' : 45}, 6, 100)
 ------------------------------------------------------
 Desired output:
 ------------------------------------------------------
@@ -16,37 +18,48 @@ Desired output:
 You only need to return one correct match to get full credit.
 Bonus point if you can return all matches. 
 '''
-from collections import OrderedDict
-from operator import itemgetter
-import math
+class PrimePantry(object):
 
-def primePantryV2(dict_items, num_items, total):
-    ''' Function to identify whether there is a subset of items that could
-    fill a Prime Pantry box to exactly 100% and report which items are in the
-    subset, given a dictionary of items and their item weights.
-    Parameters:
-    dict_items - dictionary of items
-    num_items - number of items in the dictionary
-    total - the box capacity that needs to be filled to, equals 100 by default
-    Return
-    have_subset - true/false whether subset exists
-    subset - subset of items that fit the requirements
-    '''
+    def __init__(self):
+        self.sol_exists = False
 
-    sort = OrderedDict(sorted(dict_items.items(), key=itemgetter(1)))
-    have_subset = False
-    list_keys = list(sort.keys())
-    subset = []
+    def primePantryV2(self, dict_items, num_items, total):
+        ''' Function to identify whether there is a subset of items that could
+        fill a Prime Pantry box to exactly 100% and report which items are in the
+        subset, given a dictionary of items and their item weights.
+        Parameters:
+        dict_items - dictionary of items
+        num_items - number of items in the dictionary
+        total - the box capacity that needs to be filled to, equals 100 by default
+        '''
+        try:
+            if not (isinstance(dict_items, dict) and isinstance((list(dict_items.values()))[0], int)
+                    and isinstance(num_items, int) and isinstance(total, int)):
+                raise ValueError()
+            # turn the list of items and their weights into a list of tuples
+            items = list(dict_items.items())
+            partial_lst = []
+            self.workerFunc(items, total, partial_lst)
+            if (self.sol_exists == False):
+                print ("No possible subset gives the desired total")
+        except (ValueError):
+            print("Invalid input. Needs to be primePantryV2(dict, int, int) types.")
+            print("dict_values must be int.")
+   
+    def workerFunc(self, items, total, partial_lst):
+        '''Recursive function that prints out all possible combinations
+        for desired total weight'''
+        curr_sum = sum([tup[1] for tup in partial_lst]) # get the sum of weights
 
-    sums = [{} for i in range(len(sort))]
-    sums[0].update({list_keys[0]: sort.get(list_keys[0])})
+        # check if curr_sum is equal to desired total
+        if curr_sum == total:
+            print([tup[0] for tup in partial_lst])
+            self.sol_exists = True
+        elif curr_sum >= total:
+            return
 
-    for i in range(1, num_items):
-        j = i
-        sums[i].update({list_keys[i]: math.inf})
-        while sums[i].get(list_keys[i]) > 100:
-            (sums[i])[list_keys[i]] = sums[j-1].get(list_keys[j-1]) + sort.get(list_keys[i])
-            j = j - 1
-        sums[i].update(sums[j])
+        for i in range(len(items)):
+            n = items[i]
+            remaining = items[i+1:]
+            self.workerFunc(remaining, total, partial_lst + [n])
 
-    print (sums)
