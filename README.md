@@ -24,5 +24,5 @@ The program is more efficient than enumerating all possible subsets for the foll
 ## Project Collaborators
 Asmita Gautam, Mai Ngo
 
-#### Note
+##### Note
 The project can be found on [Github](https://github.com/crystallistic/Prime-Pantry).
