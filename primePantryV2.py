@@ -8,12 +8,15 @@ Prime Pantry Box to exactly 100% and report which items are in the subset
 
 Example function call:
 ------------------------------------------------------
-primePantryV2({“pepsi”:55,“detergent”:30, “chips”:25,     
-               “cereal”:15}, 4, 100)
+primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
+               'cereal':15}, 4, 100)
+
+primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
+               'cereal':15, 'chocolate' : 70, 'soy milk' : 45}, 6, 100)
 ------------------------------------------------------
 Desired output:
 ------------------------------------------------------
-[“pepsi”, “detergent”, “cereal”]
+['pepsi', 'detergent', 'cereal']
 ------------------------------------------------------
 You only need to return one correct match to get full credit.
 Bonus point if you can return all matches. 
@@ -28,20 +31,26 @@ def primePantryV2(dict_items, num_items, total):
     dict_items - dictionary of items
     num_items - number of items in the dictionary
     total - the box capacity that needs to be filled to, equals 100 by default
-
-    Return
-    have_subset - true/false whether subset exists
-    subset - subset of items that fit the requirements
-
     '''
-    have_subset = false
-    subset = []
-    items = dict_items.keys()
+    # turn the list of items and their weights into a list of tuples
+    items = list(dict_items.items())
+    partial_lst = []
+    workerFunc(items, total, partial_lst)               
+   
+def workerFunc(items, total, partial_lst):
+    '''Recursive function that prints out all possible combinations
+    for desired total weight'''
+    curr_sum = sum([tup[1] for tup in partial_lst]) # get the sum of weights
 
-    sum = 0
+    # check if curr_sum is equal to desired total
+    if curr_sum == total:
+        print([tup[0] for tup in partial_lst])
+    elif curr_sum > total:
+        return
 
-    while (sum <= 100):
-        for irem in items:
-            price = dict_items[item]
-            if (sum + price < total):
-                
+    for i in range(len(items)):
+        n = items[i]
+        remaining = items[i+1:]
+        worker_func(remaining, total, partial_lst + [n])
+        
+        
