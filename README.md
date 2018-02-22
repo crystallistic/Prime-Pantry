@@ -6,8 +6,14 @@ Objective: Given a dictionary of items and their (integer, positive-valued) item
 Python 3.6.0
 
 ## How to Run
-1. x
-2. The program should return a list of all possible subsets that match the criteria, and print a message if there are none.
+- Run file from IDLE. Then input the following commands, in the same or similar formats. 
+
+>>> import primePantryV2
+>>> primePantryV2.primePantryV2({'pepsi':55,'detergent':30, 'chips':25,     
+               'cereal':15, 'chocolate' : 70, 'soy milk' : 45}, 6, 100)
+
+- The program should return a list of all possible subsets and the number of items in each subset that match the criteria, and print a message if there are none. It will also print a message if the input is invalid.
+
 
 ## Efficiency
 The program is more efficient than enumerating all possible subsets for the following reasons: 
